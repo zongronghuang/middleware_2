@@ -2,63 +2,58 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-// 顯示所有
+// 紀錄 req 的資訊
 app.all('*', (req, res, next) => {
-  const now = new Date()
-  const today = now.toISOString()
-  const time = today.substring(0, 10) + ' ' + today.substring(11, 19)
-  const milliseconds = Date.now()
-
+  const today = new Date()
   const method = req.method
   const path = req.originalUrl
 
-  // 避免顯示 favicon request
+  // 避免傳送 favicon request
   if (path !== '/favicon.ico') {
-    res.locals.reqInfo = { time, milliseconds, method, path }
+    res.locals.startInfo = { today, method, path }
     next('route')
   }
 })
 
-function showReqResInfo(reqInfo) {
-  const resInfoMilliseconds = Date.now()
+// 顯示 req 到 res 的資訊
+function showProcessInfo(startInfo) {
+  const endMs = Date.now()
 
-  console.log(`
-    ${reqInfo.time} | 
-    ${reqInfo.method} ${reqInfo.path} | 
-    total: ${resInfoMilliseconds - reqInfo.milliseconds} ms
-    `
-  )
+  const today = startInfo.today
+  const startTime = today.toISOString().substring(0, 10) + ' ' + today.toISOString().substring(11, 19)
+  const startMs = today.getTime()
+
+  console.log(`${startTime} | ${startInfo.method} from ${startInfo.path} | total: ${endMs - startMs} ms`)
 }
-
 
 // 列出全部 Todo
 app.get('/', (req, res) => {
   // console.log('res.locals', res.locals.reqInfo)
   res.send('列出全部 Todo')
-  showReqResInfo(res.locals.reqInfo)
+  showProcessInfo(res.locals.startInfo)
 })
 
 // 新增一筆 Todo 頁面
 app.get('/new', (req, res) => {
   res.send('新增 Todo 頁面')
-  showReqResInfo(res.locals.reqInfo)
+  showProcessInfo(res.locals.startInfo)
 })
 
 // 顯示一筆 Todo 的詳細內容
 app.get('/:id', (req, res) => {
   res.send('顯示一筆 Todo')
-  showReqResInfo(res.locals.reqInfo)
+  showProcessInfo(res.locals.startInfo)
 })
 
 // 新增一筆  Todo
 app.post('/', (req, res) => {
   res.send('新增一筆  Todo')
-  showReqResInfo(res.locals.reqInfo)
+  showProcessInfo(res.locals.startInfo)
 })
 
 app.delete('/:id/delete', (req, res) => {
   res.send('刪除 Todo')
-  showReqResInfo(res.locals.reqInfo)
+  showProcessInfo(res.locals.startInfo)
 })
 
 app.listen(port, () => {
