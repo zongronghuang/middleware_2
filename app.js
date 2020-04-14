@@ -28,7 +28,6 @@ function showProcessInfo(startInfo) {
 
 // 列出全部 Todo
 app.get('/', (req, res) => {
-  // console.log('res.locals', res.locals.reqInfo)
   res.send('列出全部 Todo')
   showProcessInfo(res.locals.startInfo)
 })
