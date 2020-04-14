@@ -23,7 +23,7 @@ function showProcessInfo(startInfo) {
   const startTime = today.toISOString().substring(0, 10) + ' ' + today.toISOString().substring(11, 19)
   const startMs = today.getTime()
 
-  console.log(`${startTime} | ${startInfo.method} from ${startInfo.path} | total: ${endMs - startMs} ms`)
+  console.log(`${startTime} | ${startInfo.method} from ${startInfo.path} | total time: ${endMs - startMs} ms`)
 }
 
 // 列出全部 Todo
