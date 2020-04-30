@@ -1,12 +1,20 @@
 const express = require('express')
 const app = express()
+const exphbs = require('express-handlebars')
+const methodOverride = require('method-override')
 const port = 3000
+
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.set('view engine', 'handlebars')
+
+app.use(methodOverride('_method'))
+
 
 // 紀錄 req 的資訊
 app.all('*', (req, res, next) => {
   const today = new Date()
   const method = req.method
-  const path = req.originalUrl
+  const path = req.baseUrl + req.path
 
   // 避免傳送 favicon request
   if (path !== '/favicon.ico') {
@@ -28,30 +36,30 @@ function showProcessInfo(startInfo) {
 
 // 列出全部 Todo
 app.get('/', (req, res) => {
-  res.send('列出全部 Todo')
+  res.render('index', { message: '列出全部 todo' })
   showProcessInfo(res.locals.startInfo)
 })
 
 // 新增一筆 Todo 頁面
 app.get('/new', (req, res) => {
-  res.send('新增 Todo 頁面')
+  res.render('index', { message: '新增 Todo 頁面' })
   showProcessInfo(res.locals.startInfo)
 })
 
 // 顯示一筆 Todo 的詳細內容
 app.get('/:id', (req, res) => {
-  res.send('顯示一筆 Todo')
+  res.render('index', { message: '顯示一筆 Todo' })
   showProcessInfo(res.locals.startInfo)
 })
 
 // 新增一筆  Todo
 app.post('/', (req, res) => {
-  res.send('新增一筆  Todo')
+  res.render('index', { message: '新增一筆  Todo' })
   showProcessInfo(res.locals.startInfo)
 })
 
 app.delete('/:id/delete', (req, res) => {
-  res.send('刪除 Todo')
+  res.render('index', { message: '刪除 Todo' })
   showProcessInfo(res.locals.startInfo)
 })
 

@@ -6,8 +6,9 @@ Alpha Camp 學期三期末考迷你專案[<sup>1</sup>](#1)
 * **收到時間**
 * **HTTP 方法**
 * **來源網址的相對路徑**
-* **收到 request 到發出 response 之間的時間長度**
+* **request 到 response 的時間**
 
+![Demo](/Demo.png)
 
 ## 安裝專案及相依套件
 ---
@@ -22,6 +23,8 @@ git clone https://github.com/zongronghuang/middleware_2.git middleware_2
 3. 透過 console 安裝下列相依套件：
 ```
     npm install express 
+                express-handlebars
+                method-override
                 nodemon 
 ```
 
@@ -39,19 +42,16 @@ git clone https://github.com/zongronghuang/middleware_2.git middleware_2
 
 ## 功能
 ---
-1. 在瀏覽器網址列中輸入 app.js 內任一個路由：
-    * `http://localhost:3000`
-    * `http://localhost:3000/new`
-    * `http://localhost:3000/:id` (**:id** 可以為任何字串)
+1. 按一下介面上的按鍵來觸發路由。
 
 2. console 上會顯示路由資訊：
 ```
-  [收到時間] | [HTTP 方法] from [來源網址的相對路徑] | total time: [時間長度] ms 
+  [收到時間] | [HTTP 方法] from [來源網址的相對路徑] | total time: [數字] ms
 ```
 
   例如：
 ```
-    2020-04-30 09:11:33 | GET from /new | total time: 1 ms
+    2020-04-30 08:51:21 | GET from / total time: 8 ms
 ```
 
 
