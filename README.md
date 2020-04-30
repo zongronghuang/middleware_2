@@ -51,7 +51,7 @@ git clone https://github.com/zongronghuang/middleware_2.git middleware_2
 
   例如：
 ```
-    2020-04-30 08:51:21 | GET from / total time: 8 ms
+    2020-04-30 08:51:21 | GET from / | total time: 8 ms
 ```
 
 
